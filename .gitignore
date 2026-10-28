@@ -1,3 +1,9 @@
 .browser-profile/
 qa-results/
 .image-originals/
+release/
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db

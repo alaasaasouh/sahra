@@ -1,7 +1,8 @@
+$projectRoot = Split-Path -Parent $PSScriptRoot
 # Re-encode generated food photography for web delivery without changing dimensions or composition.
 Add-Type -AssemblyName System.Drawing
-$assetRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot 'dist/assets'))
-$originalRoot = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '.image-originals'))
+$assetRoot = [IO.Path]::GetFullPath((Join-Path $projectRoot 'dist/assets'))
+$originalRoot = [IO.Path]::GetFullPath((Join-Path $projectRoot '.image-originals'))
 New-Item -ItemType Directory -Path $originalRoot -Force | Out-Null
 $jpegCodec = [System.Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object MimeType -eq 'image/jpeg'
 foreach ($asset in Get-ChildItem -LiteralPath $assetRoot -Filter '*.png' -File) {

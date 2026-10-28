@@ -1,5 +1,6 @@
+$projectRoot = Split-Path -Parent $PSScriptRoot
 Add-Type -AssemblyName System.Drawing
-$brandDir = Join-Path $PSScriptRoot 'dist/brand'
+$brandDir = Join-Path $projectRoot 'dist/brand'
 New-Item -ItemType Directory -Path $brandDir -Force | Out-Null
 $invariant = [Globalization.CultureInfo]::InvariantCulture
 function Number([double]$value) { return $value.ToString('0.###', $invariant) }
@@ -35,5 +36,5 @@ foreach ($variant in @(@{name='sahra-logo-dark.svg';color='#f1c66d'},@{name='sah
 $mark = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92 126" style="color:#f1c66d"><title>Sahra</title>' + $emblem + '</svg>'
 [IO.File]::WriteAllText((Join-Path $brandDir 'sahra-mark.svg'),$mark)
 $favicon='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><rect width="128" height="128" rx="27" fill="#26291f"/><g transform="translate(18 3)" style="color:#f1c66d">'+$emblem+'</g></svg>'
-[IO.File]::WriteAllText((Join-Path $PSScriptRoot 'dist/logo.svg'),$favicon)
+[IO.File]::WriteAllText((Join-Path $projectRoot 'dist/logo.svg'),$favicon)
 Write-Output 'Created three outlined SVG logo assets and the matching favicon.'

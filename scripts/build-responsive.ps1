@@ -1,6 +1,7 @@
+$projectRoot = Split-Path -Parent $PSScriptRoot
 # Responsive delivery sizes retain the complete composition of each source photograph.
 Add-Type -AssemblyName System.Drawing
-$root = Join-Path $PSScriptRoot 'dist/assets'
+$root = Join-Path $projectRoot 'dist/assets'
 $destination = Join-Path $root 'responsive'
 New-Item -ItemType Directory -Path $destination -Force | Out-Null
 $jpegCodec = [Drawing.Imaging.ImageCodecInfo]::GetImageEncoders() | Where-Object MimeType -eq 'image/jpeg'
