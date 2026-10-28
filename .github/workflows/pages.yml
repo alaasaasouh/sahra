@@ -25,7 +25,11 @@ jobs:
         with:
           node-version: '24'
           package-manager-cache: false
+      - name: Check deployment URL portability
+        run: node scripts/check-deployment.mjs
       - name: Prepare the static menu
+        env:
+          SITE_URL: https://alaasaasouh.github.io/sahra/
         run: node scripts/build-static.mjs
       - name: Verify website and assets
         run: node scripts/validate-site.mjs

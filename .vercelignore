@@ -1,0 +1,11 @@
+.git
+.github
+.openai
+.vercel
+.browser-profile
+.image-originals
+qa-results
+release
+docs
+.env
+.env.*

@@ -14,13 +14,31 @@ scripts/    Build, asset preparation and verification utilities
 docs/       Design research, branding decisions and image prompts
 .openai/    Existing Sites hosting configuration
 release/    Local deployment ZIP, excluded from Git
+vercel.json Vercel build and output configuration
 ```
 
 ## Run locally
 
 Serve `dist/` with any static web server. The menu can also be opened directly from `dist/index.html`; sharing features work best over HTTPS. The menu remains readable with JavaScript disabled.
 
-## Deploy
+## Deploy to Vercel
+
+Import **`alaasaasouh/sahra`** from GitHub into Vercel. Keep the **Root Directory** at the repository root (`.`). Vercel reads the checked-in `vercel.json` automatically:
+
+| Setting | Value |
+| --- | --- |
+| Framework Preset | Other |
+| Build Command | `node scripts/build-static.mjs && node scripts/validate-site.mjs` |
+| Output Directory | `dist` |
+| Install Command | Skipped |
+
+No npm dependencies or required secrets are needed. `dist/` contains every deployed file. The `.vercelignore` file excludes temporary browser data, local archives, documentation and unrelated hosting metadata from Vercel uploads.
+
+Canonical and social-image URLs are set during the build. The build uses `SITE_URL` when explicitly provided; otherwise it uses Vercel's production URL, then the current deployment URL. For a custom canonical domain, add an optional **`SITE_URL=https://your-domain.com/`** environment variable in Vercel and redeploy. Keep Vercel's automatic system environment variables enabled. The Share button uses the current website address.
+
+Preview deployments use the production canonical URL when Vercel provides it. Outside Vercel, the default remains the existing GitHub Pages URL.
+
+## Other static hosting and GitHub Pages
 
 Upload the **contents of `dist/`** to a static HTTPS host, with `index.html` at the root. Keep the `assets/`, `brand/` and `fonts/` directories and `sahra-menu.pdf` together. Production serving requires no Node runtime, npm dependencies, API keys or third-party font requests.
 
@@ -28,7 +46,7 @@ GitHub Pages publishes automatically from `main` using [`.github/workflows/pages
 
 Every website asset is committed: all photographs and responsive versions, SVG logos, fonts and licenses, the PDF menu, social preview, CSS and JavaScript. Temporary browser caches and local archive copies are not needed for hosting.
 
-If changing domains, update the canonical and Open Graph URLs in `dist/index.html`. The Share button automatically uses the current site's URL.
+When building for another static host, set `SITE_URL` to its public URL before running `node scripts/build-static.mjs`. The Share button automatically uses the current site's URL.
 
 The local deployment ZIP is kept at `release/sahra-ready-to-deploy.zip`. It is not committed because its contents are already present in `dist/`.
 
@@ -49,6 +67,12 @@ node scripts/validate-site.mjs
 ```
 
 This verifies local file references, all 27 static entries, fonts, responsive photos, the PDF, social artwork and touch icon.
+
+To verify metadata for Vercel production, preview deployments, a custom domain, and the GitHub Pages subdirectory:
+
+```sh
+node scripts/check-deployment.mjs
+```
 
 The full browser check uses Chrome on Windows, at the path configured in `scripts/qa.mjs`:
 
