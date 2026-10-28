@@ -2,6 +2,8 @@
 
 # Sahra — Yemeni Kitchen
 
+**Live menu:** https://alaasaasouh.github.io/sahra/
+
 A responsive restaurant menu built with HTML, CSS and vanilla JavaScript. Includes 27 photographed dishes, bilingual names, ingredient details, saved favourites, dietary filtering, price sorting, sharing, a branded PDF menu and accessible motion controls.
 
 ## Project structure
@@ -22,7 +24,11 @@ Serve `dist/` with any static web server. The menu can also be opened directly f
 
 Upload the **contents of `dist/`** to a static HTTPS host, with `index.html` at the root. Keep the `assets/`, `brand/` and `fonts/` directories and `sahra-menu.pdf` together. Production serving requires no Node runtime, npm dependencies, API keys or third-party font requests.
 
-For GitHub Pages or another hosting provider, configure `dist/` as the published output directory. If changing domains, update the canonical and Open Graph URLs in `dist/index.html`, plus the share URL in `dist/menu-runtime.js`.
+GitHub Pages publishes automatically from `main` using [`.github/workflows/pages.yml`](.github/workflows/pages.yml). The workflow prepares and validates the menu, uploads the complete `dist/` folder, then publishes it at **https://alaasaasouh.github.io/sahra/**. In the repository's **Settings → Pages**, the publishing source is **GitHub Actions**.
+
+Every website asset is committed: all photographs and responsive versions, SVG logos, fonts and licenses, the PDF menu, social preview, CSS and JavaScript. Temporary browser caches and local archive copies are not needed for hosting.
+
+If changing domains, update the canonical and Open Graph URLs in `dist/index.html`. The Share button automatically uses the current site's URL.
 
 The local deployment ZIP is kept at `release/sahra-ready-to-deploy.zip`. It is not committed because its contents are already present in `dist/`.
 
